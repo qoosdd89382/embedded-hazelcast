@@ -2,7 +2,7 @@
 
 This repository is based on Hazelcast official guide in the first place, and I made a few improvements to watch activities of session clearly.
 
-## What's the concepts I want to proof
+## What's the concepts I want to prove
 - Run a Spring Boot application successfully with Spring Session Core, Hazelcast dependencies.
 - Session can actually be controlled and managed by Spring Session.
 - Session can be transferred/saved to embedded Hazelcast member through Spring Session in Spring Boot application.
