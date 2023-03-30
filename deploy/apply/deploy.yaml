@@ -1,0 +1,32 @@
+                                                                  
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: embedded-hazelcast
+  name: embedded-hazelcast
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: embedded-hazelcast
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: embedded-hazelcast
+        app: embedded-hazelcast
+      name: embedded-hazelcast
+    spec:
+      containers:
+      - image: embedded-hazelcast
+        imagePullPolicy: Never
+        name: embedded-hazelcast
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+status: {}
+
+
