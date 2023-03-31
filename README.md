@@ -1,10 +1,10 @@
-# Embedded Hazelcast in Spring Boot Application With Spring Session
+# Embedded Hazelcast in Spring Boot Application With Spring Session (Deploy on Kubernetes)
 
 This repository is based on Hazelcast's official guide, and I have made several improvements to better monitor session activities.
 
 The application will be run as a Kubernetes Deployment, and you can try scaling it out.
 
-## What concepts do I want to demonstrate?
+## What Concepts do I Want to Demonstrate?
 
 - Successfully run a Spring Boot application with Spring Session Core and Hazelcast dependencies.
 - Demonstrate that Spring Session can effectively manage and control sessions.
@@ -13,7 +13,7 @@ The application will be run as a Kubernetes Deployment, and you can try scaling 
 - Demonstrate that all members of a Hazelcast cluster can synchronize and share sessions they have saved.
 - Demonstrate that regardless of the scale of the deployment, the application can still work properly, including the Hazelcast-Session mechanism.
 
-## Before start
+## Before Start
 
 For testing, you will need to prepare the following tools:
 - Java 8
@@ -21,11 +21,11 @@ For testing, you will need to prepare the following tools:
 - kubectl
 - Docker
 
-## How to build
+## How to Build
 
-### English
+### Steps
 
-#### Maven package
+#### Maven Package
 
 In the project directory, run the following script to package the Spring Boot application:
 
@@ -33,7 +33,7 @@ In the project directory, run the following script to package the Spring Boot ap
 mvn package -f pom.xml
 ```
 
-#### Docker env
+#### Docker Environment Setting
 
 Before you start building the image, make sure your Docker environment has been changed to Docker runtime environment of minikube.
 
@@ -47,7 +47,7 @@ Remember that when the terminal session is lost (window changes or be closed), t
 
 Therefore, you must run the `eval` script again when necessary.
 
-#### Docker build
+#### Docker Build
 
 Let's run the script below to build our image:
 
@@ -57,14 +57,14 @@ docker build -t embedded-hazelcast .
 
 #### Create Deployment
 
-To run a single-pod deployment of this application, execute `/deploy/apply/apply-deploy.sh`.
+To run a single-pod Deployment of this application, execute `/deploy/apply/apply-deploy.sh`.
 
 
 #### Expose Application
 
-To expose the Deployment we just created as a Kubernetes Service, execute `/expose/deploy-expose.sh`.
+To expose the Deployment we just created to a Kubernetes Service, execute `/expose/deploy-expose.sh`.
 
-#### Forwarding port
+#### Port Forwarding
 
 To forward the port from the Service to localhost (your computer), execute `/expose/port-forward.sh`.
 
@@ -72,6 +72,6 @@ To forward the port from the Service to localhost (your computer), execute `/exp
 
 Access `localhost:7777/list` with your browser.
 
-### Chinese
+# Credit
 
 https://cherrychaoyueh.vercel.app/
