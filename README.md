@@ -35,7 +35,7 @@ mvn package -f pom.xml
 
 #### Docker env
 
-Before you start building the image, make sure your Docker environment has been changed to that of minikube.
+Before you start building the image, make sure your Docker environment has been changed to Docker runtime environment of minikube.
 
 This way, the API server in the cluster will not attempt to pull the image from Dockerhub. Instead, it will use the local image that we have built.
 
@@ -43,9 +43,9 @@ This way, the API server in the cluster will not attempt to pull the image from 
 eval $(minikube docker-env)
 ```
 
-Remember that when the terminal is lost, or if the window changes or be closed, the environment settings will be lost as well.
+Remember that when the terminal session is lost (window changes or be closed), the environment settings will be lost as well.
 
-Therefore, you must run the eval script again when necessary.
+Therefore, you must run the `eval` script again when necessary.
 
 #### Docker build
 
