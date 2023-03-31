@@ -23,9 +23,9 @@ For testing, you will need to prepare the following tools:
 
 ## How to Build
 
-### Steps
+### Application & Image
 
-#### Maven Package
+#### Project Packaging
 
 In the project directory, run the following script to package the Spring Boot application:
 
@@ -47,7 +47,7 @@ Remember that when the terminal session is lost (window changes or be closed), t
 
 Therefore, you must run the `eval` script again when necessary.
 
-#### Docker Build
+#### Docker Image Building
 
 Let's run the script below to build our image:
 
@@ -55,12 +55,13 @@ Let's run the script below to build our image:
 docker build -t embedded-hazelcast .
 ```
 
-#### Create Deployment
+### Deploying on Kubernetes
+
+#### Creating Deployment
 
 To run a single-pod Deployment of this application, execute `/deploy/apply/apply-deploy.sh`.
 
-
-#### Expose Application
+#### Exposing Application
 
 To expose the Deployment we just created to a Kubernetes Service, execute `/expose/deploy-expose.sh`.
 
@@ -68,10 +69,14 @@ To expose the Deployment we just created to a Kubernetes Service, execute `/expo
 
 To forward the port from the Service to localhost (your computer), execute `/expose/port-forward.sh`.
 
-### How to test
+## How to test
 
+### Listing Sessions
 Access `localhost:7777/list` with your browser.
 
-# Credit
+## POC Waiting List
+- Successfully save session without `principal` parameter. (In the official guidelines, sessions need to be saved with the `principal` parameter.)
+- Different Spring Boot applications should not share their sessions because they are not the same service according to the definition of microservices. This means that the Hazelcast members embedded in those applications should not be able to group together as a cluster.
 
+## Contact
 https://cherrychaoyueh.vercel.app/
