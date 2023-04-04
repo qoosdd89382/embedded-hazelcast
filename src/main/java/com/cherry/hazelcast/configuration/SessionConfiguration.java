@@ -6,8 +6,6 @@ import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.session.FlushMode;
 import org.springframework.session.MapSession;
 import org.springframework.session.SaveMode;
@@ -49,11 +47,6 @@ public class SessionConfiguration {
         config.getSerializationConfig().addSerializerConfig(serializerConfig);
 
         return Hazelcast.newHazelcastInstance(config);
-    }
-
-    @Bean(name = "sessionRegistry")
-    public SessionRegistry sessionRegistry() {
-        return new SessionRegistryImpl();
     }
 
     @Bean
