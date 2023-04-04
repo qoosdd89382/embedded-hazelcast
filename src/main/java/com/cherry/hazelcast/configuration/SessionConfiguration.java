@@ -1,10 +1,13 @@
 package com.cherry.hazelcast.configuration;
 
+import com.cherry.hazelcast.collector.SessionCollector;
 import com.hazelcast.config.*;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.session.FlushMode;
 import org.springframework.session.MapSession;
 import org.springframework.session.SaveMode;
@@ -14,6 +17,9 @@ import org.springframework.session.hazelcast.Hazelcast4PrincipalNameExtractor;
 import org.springframework.session.hazelcast.HazelcastSessionSerializer;
 import org.springframework.session.hazelcast.config.annotation.SpringSessionHazelcastInstance;
 import org.springframework.session.hazelcast.config.annotation.web.http.EnableHazelcastHttpSession;
+
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 
 @Configuration
 @EnableHazelcastHttpSession
@@ -45,6 +51,11 @@ public class SessionConfiguration {
         return Hazelcast.newHazelcastInstance(config);
     }
 
+    @Bean(name = "sessionRegistry")
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
     @Bean
     public SessionRepositoryCustomizer<Hazelcast4IndexedSessionRepository> customize() {
         return (sessionRepository) -> {
@@ -52,6 +63,21 @@ public class SessionConfiguration {
             sessionRepository.setSaveMode(SaveMode.ALWAYS);
             sessionRepository.setSessionMapName(SESSIONS_MAP_NAME);
             sessionRepository.setDefaultMaxInactiveInterval(900);
+        };
+    }
+
+    @Bean
+    public HttpSessionListener httpSessionListener() {
+        return new HttpSessionListener() {
+            @Override
+            public void sessionCreated(HttpSessionEvent hse) {
+                SessionCollector.addActiveSession(hse.getSession());
+            }
+
+            @Override
+            public void sessionDestroyed(HttpSessionEvent hse) {
+                SessionCollector.removeActiveSession(hse.getSession().getId());
+            }
         };
     }
 }

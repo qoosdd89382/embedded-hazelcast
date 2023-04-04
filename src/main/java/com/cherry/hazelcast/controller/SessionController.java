@@ -1,5 +1,6 @@
 package com.cherry.hazelcast.controller;
 
+import com.cherry.hazelcast.collector.SessionCollector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.session.Session;
@@ -12,9 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @RestController
@@ -64,6 +64,14 @@ public class SessionController {
         ));
     }
 
+    @GetMapping(value = "/listAll", produces = MediaType.TEXT_HTML_VALUE)
+    public String listAllSessions(HttpServletRequest request) {
+        AtomicInteger i = new AtomicInteger(1);
+        return toHtmlTable(SessionCollector.getActiveSessionsMap().entrySet().stream().collect(Collectors.toMap(
+                e -> String.valueOf(i.getAndIncrement()),
+                e -> e.getKey().substring(0, 8))
+        ));
+    }
     /**
      * Returns the current session's details if the request has a session.
      *
