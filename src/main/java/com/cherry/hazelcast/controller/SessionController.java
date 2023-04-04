@@ -33,12 +33,23 @@ public class SessionController {
      * @return Message indicating the session creation or abortion result.
      *
      */
-    @GetMapping("/create")
-    public String createSession(@RequestParam("principal") String principal, HttpServletRequest request) {
+    @GetMapping("/createByPrincipal")
+    public String createSessionByPrincipal(@RequestParam("principal") String principal, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
             session = request.getSession();
             session.setAttribute(principalIndexName, principal);
+            return "Session created: " + session.getId();
+        } else {
+            return "Session already exists: " + session.getId();
+        }
+    }
+
+    @GetMapping("/create")
+    public String createSession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            session = request.getSession();
             return "Session created: " + session.getId();
         } else {
             return "Session already exists: " + session.getId();
