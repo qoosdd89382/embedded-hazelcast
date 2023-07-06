@@ -72,7 +72,14 @@ To forward the port from the Service to localhost (your computer), execute `/exp
 ## How to test
 
 ### Listing Sessions
-Access `localhost:7777/list` with your browser.
+Access `localhost:7777/create` and `localhost:7777/list` with your browser.
+
+### Notice
+
+Don't forget to use this command for access Kubernetes API when you're trying to scale app out:
+```
+  2023-07-06 16:18:27.641  WARN 1 --- [           main] c.hazelcast.kubernetes.KubernetesClient  : Kubernetes API access is forbidden! Starting standalone. To use Hazelcast Kubernetes discovery, configure the required RBAC. For 'default' service account in 'default' namespace execute: `kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast/master/kubernetes-rbac.yaml`
+```
 
 ## POC Waiting List
 - Successfully save session without `principal` parameter. (In the official guidelines, sessions need to be saved with the `principal` parameter.)
