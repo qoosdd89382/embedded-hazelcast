@@ -76,8 +76,11 @@ Access `localhost:7777/create` and `localhost:7777/list` with your browser.
 
 ### Notice
 
-Don't forget to use this command for accessing Kubernetes API when you're trying to scale app out.:
-```kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast/master/kubernetes-rbac.yaml```
+Don't forget to use this command for accessing Kubernetes API when you're trying to scale app out:
+
+```
+kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast/master/kubernetes-rbac.yaml
+```
 
 Otherwise, you will get message below: 
 ```
