@@ -43,6 +43,12 @@ This way, the API server in the cluster will not attempt to pull the image from 
 eval $(minikube docker-env)
 ```
 
+Windows:
+
+```
+minikube docker-env | Invoke-Expression
+```
+
 Remember that when the terminal session is lost (window changes or be closed), the environment settings will be lost as well.
 
 Therefore, you must run the `eval` script again when necessary.

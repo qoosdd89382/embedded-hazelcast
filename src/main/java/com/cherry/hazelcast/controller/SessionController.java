@@ -69,7 +69,7 @@ public class SessionController {
         }
         String principal = (String) session.getAttribute(principalIndexName);
         Map<String, ? extends Session> sessions = sessionRepository.findByPrincipalName(principal);
-        return toHtmlTable(sessions.entrySet().stream().collect(Collectors.toMap(
+        return toHtmlTable(request, sessions.entrySet().stream().collect(Collectors.toMap(
                 e -> e.getKey().substring(0, 8),
                 e -> "Principal: " + session.getAttribute(principalIndexName))
         ));
@@ -78,7 +78,7 @@ public class SessionController {
     @GetMapping(value = "/listAll", produces = MediaType.TEXT_HTML_VALUE)
     public String listAllSessions(HttpServletRequest request) {
         AtomicInteger i = new AtomicInteger(1);
-        return toHtmlTable(SessionCollector.getActiveSessionsMap().entrySet().stream().collect(Collectors.toMap(
+        return toHtmlTable(request, SessionCollector.getActiveSessionsMap().entrySet().stream().collect(Collectors.toMap(
                 e -> String.valueOf(i.getAndIncrement()),
                 e -> e.getKey().substring(0, 8))
         ));
@@ -99,11 +99,23 @@ public class SessionController {
         attributes.put("principal", session.getAttribute(principalIndexName));
         attributes.put("created", formatter.format(new Date(session.getCreationTime())));
         attributes.put("last accessed", formatter.format(new Date(session.getLastAccessedTime())));
-        return toHtmlTable(attributes);
+        return toHtmlTable(request, attributes);
     }
 
-    private String toHtmlTable(Map<String, Object> attributes) {
+    private String toHtmlTable(HttpServletRequest request, Map<String, Object> attributes) {
+        StringBuilder serverInfo = new StringBuilder("<p>");
+//        serverInfo.append("req url: " + request.getRequestURL() + "<br>");
+//        serverInfo.append("remote host: " + request.getRemoteHost() + "<br>");
+//        serverInfo.append("remote addr: " + request.getRemoteAddr() + "<br>");
+//        serverInfo.append("local addr: " + request.getLocalAddr() + "<br>");
+        serverInfo.append("system env hostname: " + System.getenv("HOSTNAME") + "<br>");
+        serverInfo.append("X-Forwarded-For: " + request.getHeader("X-Forwarded-For") + "<br>");
+        serverInfo.append("Remote-Addr: " + request.getHeader("Remote-Addr") + "<br>");
+
+        serverInfo.append("</p>");
+
         StringBuilder html = new StringBuilder("<html>");
+        html.append(serverInfo);
         html.append("<table border=\"1\" cellpadding=\"5\" cellspacing=\"5\">");
         attributes.forEach((k, v) -> addHtmlTableRow(html, k, v));
         html.append("</table></html>");

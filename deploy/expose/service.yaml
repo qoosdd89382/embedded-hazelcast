@@ -1,0 +1,22 @@
+# kubectl expose deploy embedded-hazelcast --target-port=8888 --port=8888 --type=NodePort --dry-run=client -o yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: embedded-hazelcast
+  name: embedded-hazelcast
+spec:
+  ports:
+    - port: 8888
+      protocol: TCP
+      targetPort: 8888
+  selector:
+    app: embedded-hazelcast
+  type: NodePort
+  sessionAffinity: None
+#  sessionAffinityConfig:
+#    clientIP:
+#      timeoutSeconds: 30
+status:
+  loadBalancer: {}
