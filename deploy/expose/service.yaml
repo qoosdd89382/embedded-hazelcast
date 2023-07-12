@@ -14,7 +14,7 @@ spec:
   selector:
     app: embedded-hazelcast
   type: NodePort
-  sessionAffinity: None
+#  sessionAffinity: None
 #  sessionAffinityConfig:
 #    clientIP:
 #      timeoutSeconds: 30

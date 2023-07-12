@@ -26,6 +26,11 @@ public class SessionController {
     @Autowired
     Hazelcast4IndexedSessionRepository sessionRepository;
 
+    @GetMapping
+    public String index(HttpServletRequest request) {
+        return this.createSession(request) + this.listAllSessions(request);
+    }
+
     /**
      * Creates a session for the request if there is no session of the request.
      *
@@ -83,6 +88,7 @@ public class SessionController {
                 e -> e.getKey().substring(0, 8))
         ));
     }
+
     /**
      * Returns the current session's details if the request has a session.
      *
@@ -104,21 +110,17 @@ public class SessionController {
 
     private String toHtmlTable(HttpServletRequest request, Map<String, Object> attributes) {
         StringBuilder serverInfo = new StringBuilder("<p>");
-//        serverInfo.append("req url: " + request.getRequestURL() + "<br>");
-//        serverInfo.append("remote host: " + request.getRemoteHost() + "<br>");
-//        serverInfo.append("remote addr: " + request.getRemoteAddr() + "<br>");
-//        serverInfo.append("local addr: " + request.getLocalAddr() + "<br>");
         serverInfo.append("system env hostname: " + System.getenv("HOSTNAME") + "<br>");
         serverInfo.append("X-Forwarded-For: " + request.getHeader("X-Forwarded-For") + "<br>");
         serverInfo.append("Remote-Addr: " + request.getHeader("Remote-Addr") + "<br>");
-
         serverInfo.append("</p>");
 
         StringBuilder html = new StringBuilder("<html>");
         html.append(serverInfo);
         html.append("<table border=\"1\" cellpadding=\"5\" cellspacing=\"5\">");
         attributes.forEach((k, v) -> addHtmlTableRow(html, k, v));
-        html.append("</table></html>");
+        html.append("</table>");
+        html.append("</html>");
         return html.toString();
     }
 
