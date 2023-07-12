@@ -110,9 +110,7 @@ public class SessionController {
 
     private String toHtmlTable(HttpServletRequest request, Map<String, Object> attributes) {
         StringBuilder serverInfo = new StringBuilder("<p>");
-        serverInfo.append("system env hostname: " + System.getenv("HOSTNAME") + "<br>");
-        serverInfo.append("X-Forwarded-For: " + request.getHeader("X-Forwarded-For") + "<br>");
-        serverInfo.append("Remote-Addr: " + request.getHeader("Remote-Addr") + "<br>");
+        serverInfo.append("system env hostname: " + System.getenv("HOSTNAME") + "<br>");serverInfo.append("Remote-Addr: " + request.getHeader("Remote-Addr") + "<br>");
         serverInfo.append("</p>");
 
         StringBuilder html = new StringBuilder("<html>");
