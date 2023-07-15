@@ -1,12 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: my-job
+  name: k6-container
 spec:
   template:
     spec:
       containers:
-        - name: my-container
+        - name: k6-container
           image: k6-container
           imagePullPolicy: Never
       restartPolicy: Never

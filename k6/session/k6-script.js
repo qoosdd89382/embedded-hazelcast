@@ -13,7 +13,7 @@ function generateRandomIP() {
 export default function () {
   const clientIP = generateRandomIP();
   const headers = { 'X-Forwarded-For': clientIP };
-  const res = http.get('http://embedded-hazelcast.default.svc.cluster.local:8888', { headers });
+  const res = http.get('http://embedded-hazelcast.default.svc.cluster.local:8888/session', { headers });
   console.log(clientIP, ' | ', res.body);
   sleep(1);
 }

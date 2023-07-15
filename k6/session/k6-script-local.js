@@ -13,7 +13,7 @@ function generateRandomIP() {
 export default function () {
   for (let i = 0; i < 500; i++) {
     const clientIP = generateRandomIP();
-    const res = http.get('http://localhost:8888', {
+    const res = http.get('http://localhost:8888/session', {
       headers: {
         'X-Forwarded-For': clientIP,
         'Remote-Addr': clientIP,

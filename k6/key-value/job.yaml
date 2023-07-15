@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6-container-kv
+spec:
+  template:
+    spec:
+      containers:
+        - name: k6-container-kv
+          image: k6-container-kv
+          imagePullPolicy: Never
+      restartPolicy: Never
+  parallelism: 10
+  completions: 10
