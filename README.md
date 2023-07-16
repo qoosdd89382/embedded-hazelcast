@@ -18,7 +18,7 @@ The application will be run as a Kubernetes Deployment, and you can try scaling 
 For testing, you will need to prepare the following tools:
 - Java 8
 - minikube: To serve as a Kubernetes context. Starting with 4GB of memory is recommended.
-- kubectl
+- kubectl: And you can set alias `alias k=kubectl` (Unix-like) or `Set-Alias -Name k -Value kubectl` (Windows). 
 - Docker
 
 ## How to Build
