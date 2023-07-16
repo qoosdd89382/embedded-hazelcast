@@ -11,11 +11,11 @@ function generateRandomIP() {
 }
 
 export default function () {
-  const res = http.get('http://embedded-hazelcast.default.svc.cluster.local:8888/kv/put?str=' + generateRandomIP());
+  const res = http.get('http://localhost:8888/kv/put?str=' + generateRandomIP());
   console.log(res.body);
-  for (let i = 0; i < 15; i++) {
-    const res = http.get('http://embedded-hazelcast.default.svc.cluster.local:8888/kv');
+  for (let i = 0; i < 60; i++) {
+    const res = http.get('http://localhost:8888/kv');
     console.log(res.body);
-    sleep(60);
+    sleep(1);
   }
 }

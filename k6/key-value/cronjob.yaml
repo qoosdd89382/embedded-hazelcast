@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: k6-container-kv-cron
+spec:
+  # 每分鐘執行一次
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: k6-container-kv
+              image: k6-container-kv
+              imagePullPolicy: Never
+          restartPolicy: Never
+      completions: 10
